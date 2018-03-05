@@ -21,6 +21,8 @@ public class test01 {
         int sum = kor + mat + eng;
         float avg = sum/3; 
 
+        System.out.println("----------------------------------------------");
+        System.out.println("성적표");
         System.out.println("이름 : "+name);
         System.out.println("국어 : "+kor);
         System.out.println("수학 : "+mat);
