@@ -1,7 +1,9 @@
-package bitcamp.java106.pms;
+package step02.assignment;
 
 public class test01_1 {
     public static void main(String[] args) {
+        
+        
         
         java.io.InputStream keyboard = System.in;
         java.util.Scanner keyScan = new java.util.Scanner(keyboard);

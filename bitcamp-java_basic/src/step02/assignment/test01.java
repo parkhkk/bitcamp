@@ -1,4 +1,4 @@
-package bitcamp.java106.pms;
+package step02.assignment;
 
 public class test01 {
     public static void main(String[] args) {
