@@ -1,14 +1,27 @@
 package step04.assignment;
 
 
-public class test01 {
+public class test02 {
     public static void main(String[] agrs){
         
-        String answer;
-        boolean yn;
         java.util.Scanner sc = new java.util.Scanner(System.in);
         
-        team[] teams = new team[5];
+        team[] teams = new team[100];
+
+        member[] members = new member[100];
+
+        for (int y = 0; y <members.length; y++) {
+            members[y] = new member();
+
+            System.out.print("이름 ? ");
+            members[y].name = sc.next();
+
+            System.out.print("이메일 ? ");
+            members[y].mail = sc.next();
+
+            System.out.print("암호 ? ");
+            members[y].pass = sc.nextInt();
+        }
         
         for (int i =0; i < teams.length; i++) {
             teams[i] = new team();
@@ -27,13 +40,6 @@ public class test01 {
            
             System.out.print("종료일 ? ");
             teams[i].fn = sc.next();
-           
-            System.out.print("계속 입력하시겠습니까?(Y/n)");
-            answer = sc.next().trim().toLowerCase();
-           
-            if (answer.equals("y")) continue;
-           
-            else if (answer.equals("n")) break;
             
         }
 
