@@ -1,54 +1,72 @@
 package bitcamp.java106.pms.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Component;
+
 import bitcamp.java106.pms.domain.Team;
 
+@Component
 public class TeamDao {
-    Team[] teams = new Team[1000];
-    int teamIndex = 0;
+
+    SqlSessionFactory sqlSessionFactory;
     
-    public void insert(Team team) {
-        // 팀 정보가 담겨있는 객체의 주소를 배열에 보관한다.
-        this.teams[this.teamIndex++] = team;
+    public TeamDao(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
     }
     
-    public Team[] list() {
-        Team[] arr = new Team[this.teamIndex];
-        for (int i = 0; i < this.teamIndex; i++) 
-            arr[i] = this.teams[i];
-        return arr;
+    public int delete(String name) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            int count = sqlSession.delete(
+                    "bitcamp.java106.pms.dao.TeamDao.delete", name);
+            sqlSession.commit();
+            return count;
+        } 
     }
     
-    public Team get(String name) {
-        int i = this.getTeamIndex(name);
-        if (i == -1)
-            return null;
-        return teams[i];
-    }
-    
-    public void update(Team team) {
-        int i = this.getTeamIndex(team.getName());
-        if (i != -1)
-            teams[i] = team;
-    }
-    
-    public void delete(String name) {
-        int i = this.getTeamIndex(name);
-        if (i != -1) 
-            teams[i] = null;
-    }
-    
-    private int getTeamIndex(String name) {
-        for (int i = 0; i < this.teamIndex; i++) {
-            if (this.teams[i] == null) continue;
-            if (name.equals(this.teams[i].getName().toLowerCase())) {
-                return i;
-            }
+    public List<Team> selectList() throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            return sqlSession.selectList(
+                    "bitcamp.java106.pms.dao.TeamDao.selectList");
         }
-        return -1;
     }
 
+    public int insert(Team team) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            int count = sqlSession.insert(
+                    "bitcamp.java106.pms.dao.TeamDao.insert", team);
+            sqlSession.commit();
+            return count;
+        }
+    }
+
+    public int update(Team team) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            int count = sqlSession.update(
+                    "bitcamp.java106.pms.dao.TeamDao.update", team);
+            sqlSession.commit();
+            return count;
+        }
+    }
+
+    public Team selectOne(String name) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            return sqlSession.selectOne(
+                    "bitcamp.java106.pms.dao.TeamDao.selectOne", name);
+        }
+    }    
 }
 
+//ver 33 - Mybatis 적용 
+//ver 32 - DB 커넥션 풀 적용
+//ver 31 - JDBC API 적용
+//ver 24 - File I/O 적용
+//ver 23 - @Component 애노테이션을 붙인다.
+//ver 22 - 추상 클래스 AbstractDao를 상속 받는다.
+//ver 19 - 우리 만든 ArrayList 대신 java.util.LinkedList를 사용하여 목록을 다룬다. 
+//ver 18 - ArrayList 클래스를 적용하여 객체(의 주소) 목록을 관리한다.
 //ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
 //ver 14 - TeamController로부터 데이터 관리 기능을 분리하여 TeamDao 생성.
 

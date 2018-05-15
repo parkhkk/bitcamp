@@ -2,28 +2,28 @@ package step05.assignment;
 
 import java.util.Scanner;
 
-public class test03 {
+public class Test03 {
     public static void main(String[] args) {
         Scanner keyScan = new Scanner(System.in);
-        System.out.print("밑변 길이? ");
-        int count = keyScan.nextInt();
-        int i = 1;
+        System.out.print("밑변의 길이? ");
+        int len = keyScan.nextInt();
 
-        while(i < count) {
-            int j = 1;
-            int k = (count - i) / 2 ;
-            while(j < k) {
+        int starLen = 1;
+        while (starLen <= len) {
+            int spaceCnt = 1;
+            int spaceLen = (len - starLen) / 2;
+            while (spaceCnt <= spaceLen) {
                 System.out.print(" ");
-                j++;
+                spaceCnt++;
             }
-            j = 1;
-            while(j <= i) {
+            
+            int starCnt = 1;
+            while (starCnt <= starLen) {
                 System.out.print("*");
-                j++;
+                starCnt++;
             }
             System.out.println();
-            i += 2;
+            starLen += 2;
         }
-        
     }
 }

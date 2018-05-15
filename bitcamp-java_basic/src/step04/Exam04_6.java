@@ -20,10 +20,12 @@ public class Exam04_6 {
         if ((lang & 0x40) > 0) System.out.print("cpp ");
         if ((lang & 0x20) > 0) System.out.print("java ");
         if ((lang & 0x10) > 0) System.out.print("js ");
-        if ((lang & 0x08) > 0) System.out.print("python ");
-        if ((lang & 0x04) > 0) System.out.print("php ");
-        if ((lang & 0x02) > 0) System.out.print("html ");
-        if ((lang & 0x01) > 0) System.out.print("css ");
+        if ((lang & 8) > 0) System.out.print("python ");
+        if ((lang & 4) > 0) System.out.print("php ");
+        if ((lang & 2) > 0) System.out.print("html ");
+        if ((lang & 1) > 0) System.out.print("css ");
+        System.out.println(); // 줄바꿈
+
 
     }
 }

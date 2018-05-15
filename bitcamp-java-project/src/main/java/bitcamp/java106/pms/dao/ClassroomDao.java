@@ -1,47 +1,65 @@
 package bitcamp.java106.pms.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.stereotype.Component;
+
 import bitcamp.java106.pms.domain.Classroom;
 
+@Component
 public class ClassroomDao {
-    Classroom[] classrooms = new Classroom[1000];
-    int classroomIndex = 0;
+
+    SqlSessionFactory sqlSessionFactory;
     
-    public void insert(Classroom classroom) {
-        classroom.setNo(classroomIndex);
-        this.classrooms[this.classroomIndex++] = classroom;
+    public ClassroomDao(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
     }
     
-    public Classroom[] list() {
-        Classroom[] arr = new Classroom[this.classroomIndex];
-        for (int i = 0; i < this.classroomIndex; i++) 
-            arr[i] = this.classrooms[i];
-        return arr;
+    public int delete(int no) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            int count = sqlSession.delete(
+                    "bitcamp.java106.pms.dao.ClassroomDao.delete", no);
+            sqlSession.commit();
+            return count;
+        } 
     }
     
-    public Classroom get(int classroomNo) {
-        for (int i = 0; i < classroomIndex; i++) {
-            if (classrooms[i] == null) continue;
-            if (classrooms[i].getNo() == classroomNo) {
-                return classrooms[i];
-            }
+    public List<Classroom> selectList() throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            return sqlSession.selectList(
+                    "bitcamp.java106.pms.dao.ClassroomDao.selectList");
         }
-        return null;
     }
-    
-    public void update(Classroom classroom) {
-        classrooms[classroom.getNo()] = classroom;
+
+    public int insert(Classroom classroom) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            int count = sqlSession.insert(
+                    "bitcamp.java106.pms.dao.ClassroomDao.insert", classroom);
+            sqlSession.commit();
+            return count;
+        }
     }
-    
-    public void delete(int classroomNo) {
-        classrooms[classroomNo] = null;
+
+    public int update(Classroom classroom) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
+            int count = sqlSession.update(
+                    "bitcamp.java106.pms.dao.ClassroomDao.update", classroom);
+            sqlSession.commit();
+            return count;
+        }
     }
-    
 
 }
 
-//ver 16 - 인스턴스 변수를 직접 사용하는 대신 겟터, 셋터 사용.
-//ver 14 - ClassroomController로부터 데이터 관리 기능을 분리하여 ClassroomDao 생성.
-
+//ver 33 - Mybatis 적용
+//ver 32 - DB 커넥션 풀 적용
+//ver 31 - JDBC API 적용
+//ver 24 - File I/O 적용
+//ver 23 - @Component 애노테이션을 붙인다.
+//ver 22 - 추상 클래스 AbstractDao를 상속 받는다.
+//ver 20 - 클래스 추가
 
 
 

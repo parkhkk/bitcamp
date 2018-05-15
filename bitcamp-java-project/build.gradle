@@ -1,10 +1,49 @@
-//build.gradle 파일
-// -gradle 빌드 도구가 사용하는 설정 파일이다.
-// -gradle 빌드 도두가 실행할 명령 을 이 파일에 작성한다.
+// build.gradle 파일
+// - gradle 빌드 도구가 사용하는 설정 파일이다.
+// - gradle 빌드 도구가 실행할 명령을 이 파일에 작성한다.
 
-// 1) gradle 빌드 도구가
+// 1) gradle 빌드 도구가 사용할 플러그인 추가
 // => 이클립스 관련 파일을 생성하고 제거하는 명령어가 들어 있는 플러그인
-apply plugin: 'eclipse'
+apply plugin: 'eclipse' 
 
 // => 자바 관련 작업을 수행할 명령어가 들어 있는 플러그인
 apply plugin: 'java'
+
+apply plugin: 'war'
+
+compileJava {
+    //컴파일할때 소스 파일의 인코딩 옵션을 추가할 것이다.
+    options.encoding = 'UTF-8'
+}
+
+war {
+    archiveName = "pms.war"
+}
+
+task copyJars(type: Copy) {
+    from configurations.runtime
+    into "build/libs/deps"
+}
+
+// => 의존 라이브러리를 보관하고 있는 서버를 지정한다.
+repositories {
+    // https://repo.maven.apache.org/maven2/ 서버에서 다운로드 받는다.
+    mavenCentral() 
+}
+
+// => 다운로드할 의존 라이브러리를 지정한다.
+dependencies {
+    // MySQL JDBC Driver 라이브러리
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.11'
+    
+    // Mybatis 라이브러리
+    compile group: 'org.mybatis', name: 'mybatis', version: '3.4.6'
+    
+    compile group: 'org.springframework', name: 'spring-context', version: '5.0.5.RELEASE'
+    
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+}
+
+
+
+

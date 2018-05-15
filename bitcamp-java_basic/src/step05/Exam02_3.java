@@ -1,26 +1,79 @@
-// 흐름 제어문 - if = else if ~ else if ~ else
+// 흐름 제어문 - switch 문법
 package step05;
 
 import java.util.Scanner;
 
 public class Exam02_3 {
     public static void main(String[] args) {
-       Scanner keyScan = new Scanner(System.in);
-       System.out.print("사용자 레벨 ?");
-       int level = keyScan.nextInt();
-       
-        // 상수를 사용하지 않았을때
-        // => 값의 의미를 주석으로 달아야만 다른 개발자가 이해할 수 있다.
-        switch (level){
-        case 0: //손님
-            System.out.println("조회만 가능합니다.");
-        case 1: // 일반회원
-            System.out.println("글작성 가능합니다.");
-        case 2: // 관리자
-            System.out.println("다른 회원의 글도 변경, 삭제 할 수 있습니다.");
-            break;
+        // switch (값) {}
+        // 값으로 가능한 데이터 타입은?
+        // => int 정수(byte,short,int,char), 문자열, 특별한 상수 Enum 타입
+        // => case 값으로 변수를 사용할 수 없다. 리터럴만 가능하다.
+        byte b = 2;
+        switch (b) {
+        case 1:
+        case 2:
+        default:
         }
 
-       
+        short s = 2;
+        switch (s) {
+        case 1:
+        case 2:
+        default:
+        }
+
+        int i = 2;
+        switch (i) {
+        case 1:
+        case 2:
+        default:    
+        }
+
+        // 컴파일 오류
+        /*
+        long l = 2;
+        switch (l) {
+        case 1:
+        case 2:
+        default:    
+        }
+        */
+
+        char c = 'A'; // A문자의 유니코드 값(UTF-16) 0x41(65)을 c에 저장한다.
+        switch (c) {
+        // case 의 값도 int 값이면 무엇이든 된다.
+        case 'A': // 0x41 = 65
+        case 66:
+        case 0x43:
+        default:    
+        }
+
+        // String 값을 switch와 case의 값으로 사용할 수 있다.
+        String str = "hello";
+        switch (str) {
+        // case 의 값으로 String 가능하다.
+        case "hello":
+        case "ohora":
+        case "hul":
+        default:    
+        }
+
+        // boolean 값을 switch와 case에 사용할 수 없다.
+        /*
+        boolean bool = true;
+        switch (bool) {
+        case true:
+        case false:
+        }
+        */
+
+        // case에는 리터럴만 올 수 있다.
+        // 즉 변수를 사용할 수 없다.
+        int x = 1, y = 300;
+        switch (x) {
+        case 1 * 300: // OK
+        case 1 * y: // 컴파일 오류!
+        }
     }
 }

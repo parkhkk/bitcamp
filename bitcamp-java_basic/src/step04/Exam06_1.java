@@ -1,14 +1,22 @@
-// 비트 이동 연산자 : 응용 III
+// 증감 연산자 : 후위(post-fix) 증가 연산자 
 package step04;
 
 public class Exam06_1 {
     public static void main(String[] args) {
         int i = 2;
 
-        int result = i++ + i++ * i++;
+        i++;
+        // 현재 위치에 i 메모리에 들어 있는 값을 꺼내 놓는다. 
+        // i 메모리의 값을 1 증가시킨다.
+        
+        i++;
 
-        System.out.printf("%d, %d\n", i, result);
+        System.out.println(i);
 
+        System.out.println(i++);
+        // System.out.println(4);
+        // i = i + 1;
+        System.out.println(i);
 
     }
 }

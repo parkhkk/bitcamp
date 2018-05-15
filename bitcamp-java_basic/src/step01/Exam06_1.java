@@ -1,10 +1,9 @@
-// 부동소수점의 리터럴
-
+// 부동소수점의 리터럴 
 package step01;
 
 public class Exam06_1 {
     public static void main(String[] args) {
-      
+        
         System.out.println(3.14);
 
         // exponential 기호를 사용하기
@@ -18,5 +17,3 @@ public class Exam06_1 {
         
     }
 }
-
-
